@@ -671,8 +671,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(textArea);
         textArea.select();
         try {
-          document.execCommand('copy');
-          showMessage("Activity details copied to clipboard!", "success");
+          const successful = document.execCommand('copy');
+          if (successful) {
+            showMessage("Activity details copied to clipboard!", "success");
+          } else {
+            showMessage("Failed to copy to clipboard", "error");
+          }
         } catch (error) {
           console.error("Failed to copy:", error);
           showMessage("Failed to copy to clipboard", "error");
