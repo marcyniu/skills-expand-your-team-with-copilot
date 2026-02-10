@@ -629,18 +629,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const description = button.dataset.description;
     const schedule = button.dataset.schedule;
     
-    // Build the share URL (current page URL with activity anchor)
+    // Build the share URL (current page URL)
     const currentUrl = window.location.origin + window.location.pathname;
     const shareUrl = encodeURIComponent(currentUrl);
     const shareText = encodeURIComponent(`Check out ${activityName} at Mergington High School! ${description}`);
     
     if (button.classList.contains("share-facebook")) {
-      // Facebook share
+      // Facebook share - using quote parameter for the text
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`;
       window.open(facebookUrl, '_blank', 'width=600,height=400');
     } else if (button.classList.contains("share-twitter")) {
-      // Twitter/X share - using x.com domain
-      const twitterUrl = `https://x.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+      // Twitter/X share - text parameter includes the content
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
       window.open(twitterUrl, '_blank', 'width=600,height=400');
     } else if (button.classList.contains("share-email")) {
       // Email share
