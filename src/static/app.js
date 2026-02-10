@@ -84,9 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isDarkMode) {
       themeIcon.textContent = "☀️";
       themeText.textContent = "Light";
+      darkModeToggle.setAttribute("aria-label", "Switch to light mode");
     } else {
       themeIcon.textContent = "🌙";
       themeText.textContent = "Dark";
+      darkModeToggle.setAttribute("aria-label", "Switch to dark mode");
     }
   }
 
