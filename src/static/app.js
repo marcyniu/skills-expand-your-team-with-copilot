@@ -98,6 +98,13 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchActivities();
   }
 
+  // Function to escape HTML to prevent XSS attacks
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   // Check if user is already logged in (from localStorage)
   function checkAuthentication() {
     const savedUser = localStorage.getItem("currentUser");
@@ -554,19 +561,19 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="share-buttons">
         <span class="share-label">Share:</span>
-        <button class="share-btn share-facebook tooltip" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" aria-label="Share on Facebook">
+        <button class="share-btn share-facebook tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" aria-label="Share on Facebook">
           <span class="share-icon">📘</span>
           <span class="tooltip-text">Share on Facebook</span>
         </button>
-        <button class="share-btn share-twitter tooltip" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" aria-label="Share on Twitter">
+        <button class="share-btn share-twitter tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" aria-label="Share on Twitter">
           <span class="share-icon">🐦</span>
           <span class="tooltip-text">Share on Twitter</span>
         </button>
-        <button class="share-btn share-email tooltip" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" data-schedule="${formattedSchedule.replace(/"/g, '&quot;')}" aria-label="Share via Email">
+        <button class="share-btn share-email tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" aria-label="Share via Email">
           <span class="share-icon">✉️</span>
           <span class="tooltip-text">Share via Email</span>
         </button>
-        <button class="share-btn share-copy tooltip" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" data-schedule="${formattedSchedule.replace(/"/g, '&quot;')}" aria-label="Copy link">
+        <button class="share-btn share-copy tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" aria-label="Copy link">
           <span class="share-icon">🔗</span>
           <span class="tooltip-text">Copy link</span>
         </button>
@@ -632,8 +639,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`;
       window.open(facebookUrl, '_blank', 'width=600,height=400');
     } else if (button.classList.contains("share-twitter")) {
-      // Twitter/X share
-      const twitterUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+      // Twitter/X share - using x.com domain
+      const twitterUrl = `https://x.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
       window.open(twitterUrl, '_blank', 'width=600,height=400');
     } else if (button.classList.contains("share-email")) {
       // Email share
@@ -655,7 +662,8 @@ document.addEventListener("DOMContentLoaded", () => {
             showMessage("Failed to copy to clipboard", "error");
           });
       } else {
-        // Fallback for older browsers
+        // Fallback for older browsers that don't support Clipboard API
+        // Note: document.execCommand('copy') is deprecated but maintained for legacy browser support
         const textArea = document.createElement("textarea");
         textArea.value = textToCopy;
         textArea.style.position = "fixed";
