@@ -32,6 +32,40 @@
   --info-light: #d1ecf1;
 }
 
+/* Dark mode colors */
+body.dark-mode {
+  /* Primary colors */
+  --primary: #534bae;
+  --primary-light: #7e6fc5;
+  --primary-dark: #1a237e;
+  --primary-text: #ffffff;
+
+  /* Secondary colors */
+  --secondary: #ffa040;
+  --secondary-light: #ffb366;
+  --secondary-dark: #ff6f00;
+  --secondary-text: #000000;
+
+  /* Neutral colors */
+  --background: #1a1a1a;
+  --surface: #2a2a2a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border: #3a3a3a;
+  --border-light: #333333;
+  --border-focus: #4a4a4a;
+
+  /* Feedback colors */
+  --success: #4caf50;
+  --success-light: #2a3a2a;
+  --warning: #ffb74d;
+  --warning-light: #3a3020;
+  --error: #ef5350;
+  --error-light: #3a2020;
+  --info: #4fc3f7;
+  --info-light: #203a3a;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -285,6 +319,68 @@ section h3 {
   letter-spacing: 0.3px;
   text-transform: uppercase;
   border: none;
+}
+
+/* Share buttons */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 0;
+  margin-top: 8px;
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+}
+
+.share-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-right: 2px;
+}
+
+.share-btn {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 28px;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.share-btn .share-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.share-facebook:hover {
+  background-color: #1877f2;
+  border-color: #1877f2;
+}
+
+.share-twitter:hover {
+  background-color: #1da1f2;
+  border-color: #1da1f2;
+}
+
+.share-email:hover {
+  background-color: #ea4335;
+  border-color: #ea4335;
+}
+
+.share-copy:hover {
+  background-color: var(--success);
+  border-color: var(--success);
 }
 
 button {
@@ -621,11 +717,37 @@ footer {
   position: absolute;
   top: 10px;
   right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #user-status {
   display: flex;
   align-items: center;
+}
+
+/* Dark mode toggle button */
+#dark-mode-toggle {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: none;
+  color: var(--primary-text);
+}
+
+#dark-mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.theme-icon {
+  font-size: 1rem;
 }
 
 #user-info {
